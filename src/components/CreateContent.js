@@ -6,7 +6,6 @@ class CreateContent extends Component {
       <form onSubmit={
         (e) => {
           e.preventDefault();
-          console.log(e.target[0].value);
           this.props.onPushContents(e.target[0].value, e.target[1].value);
         }
       }>
