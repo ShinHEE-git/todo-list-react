@@ -4,9 +4,7 @@ class Contents extends Component {
   render() {
     return (
       <ul>
-        <li>
 
-        </li>
       </ul>
     );
   }
