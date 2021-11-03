@@ -2,7 +2,9 @@ import React from 'react';
 import './App.css';
 import Contents from './components/Contents';
 import Clock from './components/Clock';
+import ButtonTable from './components/ButtonTable';
 import CreateContent from './components/CreateContent'
+
 
 class App extends React.Component {
   constructor(props) {
@@ -16,13 +18,15 @@ class App extends React.Component {
   }
 
 
+
   getContents() {
-    let userbox = null,
-      _contents = Array.from(this.state.contents),
-      _array_max = 1 + this.state.array_max;
+    let controlbox = null, _array_max = 1 + this.state.array_max;
 
     if (this.state.mode === 'create') {
-      userbox = <CreateContent
+      let _contents;
+      _contents = Array.from(this.state.contents)
+
+      controlbox = <CreateContent
         onPushContents={(_title, _desc) => {
           _contents.push({
             id: this.state.array_max,
@@ -34,14 +38,12 @@ class App extends React.Component {
             mode: 'create',
             array_max: _array_max
           });
-
-          console.log(this.state.contents);
         }}
       ></CreateContent >
     }
 
 
-    return userbox;
+    return controlbox;
   }
 
   render() {
@@ -50,8 +52,13 @@ class App extends React.Component {
       <div>
         <h1>To Do List</h1>
         <Clock date={this.state.date}></Clock>
-        {/* <ButtonTable></ButtonTable> */}
-        <Contents contents={this.state.contents}></Contents>
+        <ButtonTable
+          onChangeMode={(modeKey) => { this.setState({ mode: modeKey }) }}>
+        </ButtonTable>
+        <Contents
+          contents={this.state.contents}
+          array_max={this.state.array_max}>
+        </Contents>
         {/* <Description></Description> */}
         {this.getContents()}
       </div >
