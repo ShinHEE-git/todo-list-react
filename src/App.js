@@ -35,7 +35,7 @@ class App extends React.Component {
           })
           this.setState({
             contents: _contents,
-            mode: 'create',
+            mode: 'read',
             array_max: _array_max
           });
         }}
@@ -50,7 +50,12 @@ class App extends React.Component {
 
     return (
       <div>
-        <h1>To Do List</h1>
+        <h1><a href="/" onClick={(e) => {
+          e.preventDefault();
+          this.setState({ mode: 'read' });
+        }}>
+          To Do List
+        </a></h1>
         <Clock date={this.state.date}></Clock>
         <ButtonTable
           onChangeMode={(modeKey) => { this.setState({ mode: modeKey }) }}>
