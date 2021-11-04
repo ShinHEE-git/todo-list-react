@@ -8,10 +8,12 @@ class Contents extends Component {
     while (i < data.length) {
       contentsList.push(
         <li key={data[i].id}>
-          <a href="/content/" onClick={(e) => {
-            e.preventDefault();
-            console.log(e);
-          }}>{data[i].title}</a>
+          {data[i].title}
+          <input type="button" value="edit" id={data[i].id} onClick={(e) => { }} />
+          <input type="button" value="X" id={data[i].id}
+            onClick={(e) => {
+              this.props.deleteContent(e.target.id)
+            }} />
         </li>
 
       )

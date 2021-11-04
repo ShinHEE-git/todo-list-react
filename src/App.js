@@ -19,7 +19,7 @@ class App extends React.Component {
 
 
 
-  getContents() {
+  getContent() {
     let controlbox = null, _array_max = 1 + this.state.array_max;
 
     if (this.state.mode === 'create') {
@@ -41,10 +41,28 @@ class App extends React.Component {
         }}
       ></CreateContent >
     }
-
-
     return controlbox;
   }
+
+  deleteContent(selected_content_id) {
+    let i = 0,
+      _contents = Array.from(this.state.contents),
+      _array_max = this.state.array_max;
+
+    while (i < this.state.array_max) {
+      if (_contents[i].id === Number(selected_content_id)) {
+        _contents.splice(i, 1);
+        this.setState({
+          contents: _contents,
+          array_max: _array_max
+        });
+        break;
+      }
+      i += 1
+    }
+
+  }
+
 
   render() {
 
@@ -62,10 +80,12 @@ class App extends React.Component {
         </ButtonTable>
         <Contents
           contents={this.state.contents}
-          array_max={this.state.array_max}>
+          array_max={this.state.array_max}
+          deleteContent={(selected_content_id) => { this.deleteContent(selected_content_id) }
+          }>
         </Contents>
         {/* <Description></Description> */}
-        {this.getContents()}
+        {this.getContent()}
       </div >
     );
   }
