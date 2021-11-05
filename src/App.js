@@ -13,19 +13,19 @@ class App extends React.Component {
       mode: 'create',
       date: Date(),
       contents: [],
-      array_max: 0
+      array_max: 0,
+      selected_content_id: null
     };
   }
 
 
 
   getContent() {
-    let controlbox = null, _array_max = 1 + this.state.array_max;
+    let _array_max, controlbox;
+    let _contents = Array.from(this.state.contents)
 
     if (this.state.mode === 'create') {
-      let _contents;
-      _contents = Array.from(this.state.contents)
-
+      _array_max = 1 + this.state.array_max
       controlbox = <CreateContent
         onPushContents={(_title, _desc) => {
           _contents.push({
@@ -40,17 +40,34 @@ class App extends React.Component {
           });
         }}
       ></CreateContent >
+    } else if (this.state.mode === 'update') {
+
+      controlbox = <CreateContent
+        onPushContents={(_title, _desc) => {
+          _contents.splice(this.state.selected_content_id, 1, {
+            id: this.state.selected_content_id,
+            title: _title,
+            desc: _desc
+          })
+          this.setState({
+            contents: _contents,
+            mode: 'read',
+          });
+        }}>
+
+      </CreateContent>
     }
     return controlbox;
   }
 
-  deleteContent(selected_content_id) {
+
+  deleteContent(_selected_content_id) {
     let i = 0,
       _contents = Array.from(this.state.contents),
       _array_max = this.state.array_max;
 
     while (i < this.state.array_max) {
-      if (_contents[i].id === Number(selected_content_id)) {
+      if (_contents[i].id === Number(_selected_content_id)) {
         _contents.splice(i, 1);
         this.setState({
           contents: _contents,
@@ -60,7 +77,6 @@ class App extends React.Component {
       }
       i += 1
     }
-
   }
 
 
@@ -81,8 +97,16 @@ class App extends React.Component {
         <Contents
           contents={this.state.contents}
           array_max={this.state.array_max}
-          deleteContent={(selected_content_id) => { this.deleteContent(selected_content_id) }
-          }>
+          deleteContent={(_selected_content_id) => {
+            this.deleteContent(_selected_content_id)
+          }}
+          updateContent={(_selected_content_id) => {
+            this.setState({
+              mode: 'update',
+              selected_content_id: _selected_content_id
+            })
+          }}
+        >
         </Contents>
         {/* <Description></Description> */}
         {this.getContent()}

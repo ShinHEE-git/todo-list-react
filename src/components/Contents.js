@@ -9,7 +9,10 @@ class Contents extends Component {
       contentsList.push(
         <li key={data[i].id}>
           {data[i].title}
-          <input type="button" value="edit" id={data[i].id} onClick={(e) => { }} />
+          <input type="button" value="update" id={data[i].id}
+            onClick={(e) => {
+              this.props.updateContent(e.target.id)
+            }} />
           <input type="button" value="X" id={data[i].id}
             onClick={(e) => {
               this.props.deleteContent(e.target.id)
