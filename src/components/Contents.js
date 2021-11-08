@@ -8,7 +8,13 @@ class Contents extends Component {
     while (i < data.length) {
       contentsList.push(
         <li key={data[i].id}>
-          {data[i].title}
+          <a href="/" id={data[i].id} onClick={(e) => {
+            e.preventDefault()
+            this.props.clickContent(e.target.id)
+            console.log(e.target.id)
+          }}>
+            {data[i].title}
+          </a>
           <input type="button" value="update" id={data[i].id}
             onClick={(e) => {
               this.props.updateContent(e.target.id)

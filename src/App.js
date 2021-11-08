@@ -4,6 +4,7 @@ import Contents from './components/Contents';
 import Clock from './components/Clock';
 import ButtonTable from './components/ButtonTable';
 import CreateContent from './components/CreateContent'
+import Description from './components/Description'
 
 
 class App extends React.Component {
@@ -12,13 +13,11 @@ class App extends React.Component {
     this.state = {
       mode: 'create',
       date: Date(),
-      contents: [],
+      contents: [], //id: Number, title: String, desc: String
       array_max: 0,
       selected_content_id: null
     };
   }
-
-
 
   getContent() {
     let _array_max, controlbox;
@@ -94,9 +93,14 @@ class App extends React.Component {
         <ButtonTable
           onChangeMode={(modeKey) => { this.setState({ mode: modeKey }) }}>
         </ButtonTable>
+        {this.getContent()}
         <Contents
           contents={this.state.contents}
           array_max={this.state.array_max}
+          clickContent={(_selected_content_id) => {
+            this.setState({ selected_content_id: _selected_content_id })
+            console.log(_selected_content_id)
+          }}
           deleteContent={(_selected_content_id) => {
             this.deleteContent(_selected_content_id)
           }}
@@ -108,8 +112,12 @@ class App extends React.Component {
           }}
         >
         </Contents>
-        {/* <Description></Description> */}
-        {this.getContent()}
+        <Description
+          contents={this.state.contents}
+          selected_content_id={this.state.selected_content_id}
+
+        ></Description>
+
       </div >
     );
   }

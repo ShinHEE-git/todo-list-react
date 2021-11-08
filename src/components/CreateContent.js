@@ -7,7 +7,7 @@ class CreateContent extends Component {
         (e) => {
           e.preventDefault();
           this.props.onPushContents(e.target[0].value, e.target[1].value)
-          console.log(e);
+
         }
       }>
         <input type="text" placehorder="title" />
