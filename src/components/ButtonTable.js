@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class ButtonTable extends Component {
   render() {
     return (
-      <div>
+      <div id="button_table">
         <input type="button" value="추가"
           onClick={() => { this.props.onChangeMode('create') }} />
         <input type="button" value="수정"
