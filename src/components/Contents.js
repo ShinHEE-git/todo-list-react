@@ -11,7 +11,6 @@ class Contents extends Component {
           <a href="/" id={data[i].id} onClick={(e) => {
             e.preventDefault()
             this.props.clickContent(e.target.id)
-            console.log(e.target.id)
           }}>
             {data[i].title}
           </a>

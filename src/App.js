@@ -65,9 +65,10 @@ class App extends React.Component {
       _contents = Array.from(this.state.contents),
       _array_max = this.state.array_max;
 
-    while (i < this.state.array_max) {
+    while (i < _array_max) {
       if (_contents[i].id === Number(_selected_content_id)) {
         _contents.splice(i, 1);
+        _array_max = _array_max - 1
         this.setState({
           contents: _contents,
           array_max: _array_max
@@ -76,6 +77,8 @@ class App extends React.Component {
       }
       i += 1
     }
+
+
   }
 
 
@@ -99,7 +102,6 @@ class App extends React.Component {
           array_max={this.state.array_max}
           clickContent={(_selected_content_id) => {
             this.setState({ selected_content_id: _selected_content_id })
-            console.log(_selected_content_id)
           }}
           deleteContent={(_selected_content_id) => {
             this.deleteContent(_selected_content_id)

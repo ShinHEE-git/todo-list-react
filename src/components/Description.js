@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 
 class Description extends Component {
   render() {
-    let contents = this.props.contents
-    let selected_content_id = this.props.selected_content_id
+
     let desc
     let i = 0
-    while (i <= contents.length) {
-      console.log(selected_content_id)
-      if (i === Number(selected_content_id)) {
-        desc = contents[i].desc
+    while (i < this.props.contents.length) {
+      let data = this.props.contents[i]
+      if (data.id === Number(this.props.selected_content_id)) {
+        desc = data.desc
         break;
       }
 
