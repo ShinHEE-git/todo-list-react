@@ -1,20 +1,37 @@
 import './App.css';
 import { FaPen, FaTrashAlt } from "react-icons/fa";
 import { useState, useRef } from 'react';
-
 export default function App() {
   const [todoItemList, setTodoItemList] = useState(["eat kimchi", "update Portfolio"])
+  const [selectedItem, setSelectedItem] = useState()
   const inputForm = useRef(null)
 
   function createItem(e) {
     e.preventDefault();
-    const copyTodoItemList = todoItemList.concat(e.target[0].value)
+    const inputText = e.target[0].value
+    if (inputText.length === 0) {
+      return;
+    }
+    const copyTodoItemList = todoItemList.concat(inputText)
     setTodoItemList(copyTodoItemList)
     e.target[0].value = ""
   }
 
   function updateItem(i) {
-
+    console.log(inputForm)
+    inputForm.current.hidden = false
+    inputForm.current[0].value = todoItemList[i]
+    setSelectedItem(i)
+  }
+  function submitUpdateItem(e) {
+    e.preventDefault()
+    const copyTodoItemList = todoItemList
+    copyTodoItemList.splice(selectedItem, 1, inputForm.current[0].value)
+    setTodoItemList([...copyTodoItemList])
+    inputForm.current.hidden = true
+  }
+  function cancelUpdateItem() {
+    inputForm.current.hidden = true
   }
 
   function deleteItem(i) {
@@ -35,8 +52,13 @@ export default function App() {
               </li>)
           })}
         </ul>
+        <form ref={inputForm} onSubmit={submitUpdateItem} hidden={true}>
+          <input type="text" />
+          <input type="submit" value="update" />
+          <input type="button" value="X" onClick={() => { cancelUpdateItem() }} />
+        </form>
       </div>
-      <form onSubmit={createItem} ref={inputForm}>
+      <form onSubmit={createItem} >
         <input type="text" />
         <input type="submit" value="submit" />
       </form>
