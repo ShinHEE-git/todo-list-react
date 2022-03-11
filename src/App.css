@@ -1,0 +1,9 @@
+li{
+  width: inherit;
+}
+button{
+  text-decoration: none;
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+}
