@@ -17,12 +17,12 @@ export default function App() {
     e.target[0].value = ""
   }
 
-  function updateItem(i) {
-    console.log(inputForm)
+  function clickUpdateButton(i) {
     inputForm.current.hidden = false
     inputForm.current[0].value = todoItemList[i]
     setSelectedItem(i)
   }
+
   function submitUpdateItem(e) {
     e.preventDefault()
     const copyTodoItemList = todoItemList
@@ -30,6 +30,7 @@ export default function App() {
     setTodoItemList([...copyTodoItemList])
     inputForm.current.hidden = true
   }
+
   function cancelUpdateItem() {
     inputForm.current.hidden = true
   }
@@ -47,7 +48,7 @@ export default function App() {
           {todoItemList.map((item, i) => {
             return (
               <li key={i}>{item}
-                <button onClick={() => updateItem(i)}><FaPen /></button>
+                <button onClick={() => clickUpdateButton(i)}><FaPen /></button>
                 <button onClick={() => deleteItem(i)}><FaTrashAlt key={i} /></button>
               </li>)
           })}
